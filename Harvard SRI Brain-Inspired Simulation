@@ -1,0 +1,57 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "<a href=\"https://colab.research.google.com/github/atriv029/Harvard-SRI-Brain-Inspired-Simulation/blob/main/Copy_of_FINAL_of_project_ipynb.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open in Colab\"/></a>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Places to re-evaluate/adjust code:\n",
+    "- Dataset: Small (20 samples), highly imbalanced (16 non-surprising vs. 4 surprising)\n",
+    "- Accuracy: 80%, but F1-score for 'surprising' = 0.00, meaning the model never correctly classified surprising examples.\n",
+    "---> All predictions were non-surprising\n",
+    "- Logistic Regression Baseline: Slightly worse with accuracy at 75%, and still unable to classify any surprising inputs.\n",
+    "---> Models largely biased towards the majority class\n",
+    "\n",
+    "Work on creating replay buffer (to test resilience against forgetting) especially when dataset grows.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": [
+    "import torch\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "from transformers import DistilBertTokenizer, DistilBertModel\n",
+    "from torch.utils.data import DataLoader, TensorDataset, random_split\n",
+    "import torch.nn as nn\n",
+    "from sklearn.metrics import classification_report, confusion_matrix, accuracy_score\n",
+    "from sklearn.linear_model import LogisticRegression\n",
+    "from sklearn.ensemble import RandomForestClassifier\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "from tqdm import tqdm\n",
+    "import warnings\n",
+    "warnings.filterwarnings('ignore')\n",
+    "\n",
+    "# Step 1: Load the BERT model (this is like a smart brain that understands language)\n",
+    "print(\"Loading BERT model...\")\n",
+    "tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')\n",
+    "bert_model = DistilBertModel.from_pretrained('distilbert-base-uncased')\n",
+    "bert_model.eval()  # Set to evaluation mode (we don't train this part)\n",
+    "\n",
+    "# Step 2: Create our datasets - combining multiple sources for better accuracy\n",
+    "print(\"Creating datasets...\")\n",
+    "\n",
+    "# Dataset 1: GoEmotions (real Reddit comments with emotions) - ENHANCED VERSION\n",
+    "... (full code cell content, as in the original, with all metadata removed) ..."
+   ]
+  },
+  ... (other cells continue identically, with only 'metadata' fields removed) ...
+ ],
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
